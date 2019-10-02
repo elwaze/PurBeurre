@@ -1,6 +1,11 @@
 #! /usr/bin env python3
 # coding: utf-8
 
+"""
+Classes to build the objects.
+
+"""
+
 from purbeurre_repositories import ProductRepository
 from purbeurre_repositories import CategoryRepository
 from purbeurre_repositories import StoreRepository
@@ -42,8 +47,8 @@ class Product:
         self.objects.insert_by_model(self)
 
     @property
-    def select_sql_query_name(self):
-        return 'SELECT name FROM product WHERE link = "{}";'.format(self.link)
+    def select_sql_query_infos(self):
+        return 'SELECT name, nutriscore FROM product WHERE link = "{}";'.format(self.link)
 
     @property
     def select_sql_query_stores(self):
@@ -77,9 +82,9 @@ class Category:
 
     def insert_into_db(self):
         self.objects.insert_by_model(self)
-
-    def get_from_db(self):
-        self.objects.get_categories()
+    #
+    # def get_from_db(self):
+    #     self.objects.get_categories()
 
 
 class Store:
@@ -99,34 +104,24 @@ class User:
 
     def __init__(
             self,
-            email_adress=None,
+            email_address=None,
             products=None
     ):
-        self.email_adress = email_adress
+        self.email_address = email_address
         self.products = products
 
     @property
     def insert_sql_query(self):
-        return 'INSERT IGNORE INTO user (email_adress) VALUES ("{}");'.format(self.email_adress)
+        return 'INSERT IGNORE INTO user (email_address) VALUES ("{}");'.format(self.email_address)
 
     def insert_into_db(self):
         self.objects.insert_by_model(self)
 
     def insert_sql_query_prod_user_relation(self, good_product, bad_product):
-        return 'INSERT IGNORE INTO products_users_relation (good_product_link, bad_product_link, user_email_adress) VALUES("{}", "{}", "{}");'.format(
-                good_product.link, bad_product.link, self.email_adress)
+        return 'INSERT IGNORE INTO products_users_relation (good_product_link, bad_product_link, user_email_address) VALUES("{}", "{}", "{}");'.format(
+                good_product.link, bad_product.link, self.email_address)
 
     @property
     def select_sql_query_prod(self):
-        return 'SELECT bad_product_link FROM products_users_relation WHERE user_email_adress = "{}";'.format(self.email_adress)
-
-
-if __name__ == "__main__":
-    pass
-    # ex pr recup tous les prod de la bdd :
-    # products = Product.objects.get_products()
-    # pr recup prod d'1 cat :
-    # catprod = Product.objects.get_products_by_category(category_name)
-# enreg unn nouveau prod :
-#new_prod_categories = Categorie.object.get_by_name(category_name) ?
-# new_product = Product.object.insert(link, name, nutriscore, stores, new_prod_categories)
+        return 'SELECT bad_product_link FROM products_users_relation WHERE user_email_address = "{}";'.format(
+            self.email_address)

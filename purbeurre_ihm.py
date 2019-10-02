@@ -68,7 +68,7 @@ def new_search(user):
     category = Category(name=category)
     # asks the user to choose a product among the products registered in this category
     product = product_selection(category=category)
-    product = Product(link=product[1], name=product[0])
+    product = Product(link=product[1], name=product[0], nutriscore=product[2])
     # searches for a substitute
     substitute = Product.objects.get_better_products_by_category(category)
     substitute = substitute[0]
@@ -154,14 +154,17 @@ def product_selection(category=None, user=0):
     if user == 0:
         prods = Product.objects.get_products_by_category(category)
         for element in prods:
-            products.append((element['name'], element['link']))
+            products.append((element['name'], element['link'], element['nutriscore']))
     # else, searching in the favorite products of the user
     else:
         prods = Product.objects.get_products_by_user(user)
         for element in prods:
+            print(element)
             product = Product(link=element["bad_product_link"])
-            product.name = Product.objects.get_product_name(product)
-            products.append((product.name, product.link))
+            print(product)
+            product.name, product.nutriscore = Product.objects.get_product_infos(product)
+            products.append((product.name, product.link, product.nutriscore))
+
     # asking the user to choose
     for i in range(len(products)):
         with indent(4):
@@ -172,14 +175,14 @@ def product_selection(category=None, user=0):
     except TypeError:
         # asking again in case of wrong choice
         puts(colored.red("Attention : vous devez rentrer un nombre de la liste de produits"))
-        product = product_selection(category=category, user=user)
+        product_selection(category=category, user=user)
     else:
         if product_number in range(len(products)):
             return products[product_number]
         else:
             # asking again in case of wrong choice
             puts(colored.red("Attention : vous devez rentrer un nombre de la liste de produits"))
-            product = product_selection(category=category, user=user)
+            product_selection(category=category, user=user)
 
 
 def substitute_proposal(substitute, product):
@@ -190,13 +193,15 @@ def substitute_proposal(substitute, product):
     :param product: product to substitute.
 
     """
-
-    puts(colored.green("Nous vous proposons de consommer " + substitute.name + " à la place de " + product.name))
-    puts(colored.green("Plus d'infos : "))
-    with indent(4):
-        puts(colored.green("Nutriscore : " + str(substitute.nutriscore)))
-        puts(colored.green("Magasins où l'acheter : " + ', '.join(map(str, substitute.stores))))
-        puts(colored.green("Lien vers le descriptif OpenFoodFacts : " + substitute.link))
+    if substitute.nutriscore == product.nutriscore:
+        puts(colored.green("Nous n'avons pas trouvé de produit plus sain que " + product.name + "."))
+    else:
+        puts(colored.green("Nous vous proposons de consommer " + substitute.name + " à la place de " + product.name))
+        puts(colored.green("Plus d'infos : "))
+        with indent(4):
+            puts(colored.green("Nutriscore : " + str(substitute.nutriscore)))
+            puts(colored.green("Magasins où l'acheter : " + ', '.join(map(str, substitute.stores))))
+            puts(colored.green("Lien vers le descriptif OpenFoodFacts : " + substitute.link))
 
 
 def main():
