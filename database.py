@@ -7,6 +7,5 @@ Connection to the database.
 """
 
 import records
-import os
 
-db = records.Database('mysql+mysqlconnector://root:{}@localhost/OFF'.format(os.environ.get('P5_MYSQL_PASSWORD')))
+db = records.Database('mysql+mysqlconnector://root:Uhqjr#2019@localhost/OFF')

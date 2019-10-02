@@ -1,79 +1,157 @@
 #! /usr/bin env python3
 # coding: utf-8
 
+"""
+Class Base Repository and its children. Manages interactions with the ihm and with the database.
 
-# lieu qui contient les methodes qui permettront de realiser les opérations utiles dans l'appli
-# (ex get_unhealthy_products_by_category)
-# c'est ici qu'on a le sql: toute la couche d'acces a la bdd
-# méthodes spécifiques pour les interactions avec la bdd. C'est ces repositories là qui vont se connecter à la bdd
+"""
+
 
 class BaseRepository:
+    """Master class initiating the database relation."""
+
     def __init__(self, db):
         self.db = db
 
 
 class ProductRepository(BaseRepository):
+    """Class inheriting from BaseRepository and managing the interactions for products"""
 
     def get_better_products_by_category(self, category):
+        """
+        Querying better products in a chosen category in the database.
+
+        :param category: category of the products.
+
+        :return better_products: products of the same category ordered by nutriscore level.
+
+        """
+
         better_products = self.db.query(category.select_sql_query_better_products)
         return better_products
 
     def get_products_by_category(self, category):
+        """
+        Querying products in a chosen category in the database.
+
+        :param category: category of the products.
+
+        :return products: products of the same category.
+
+        """
+
         products = self.db.query(category.select_sql_query_products)
         return products
 
     def get_products_by_user(self, user):
+        """
+        Querying products in the favorites of a chosen user in the database.
+
+        :param user: user id.
+
+        :return products: favorites products of the user.
+
+        """
+
         products = self.db.query(user.select_sql_query_prod)
         return products
 
     def get_product_name(self, product):
+        """
+        Querying a product name in the database.
+
+        :param product: product.
+
+        :return product_name: name of the product.
+
+        """
+
         product_name = self.db.query(product.select_sql_query_name)
         return product_name
 
     def get_substitute(self, product):
+        """
+        Querying a product substitute saved in favorites in the database.
+
+        :param product: product to be substituted.
+
+        :return substitute: roduct substitute saved in favorites.
+
+        """
+
         substitute = self.db.query(product.select_sql_query_substitute)
         return substitute
 
     def insert_by_model(self, product):
         """
-        :param product:
-        :type product: purbeurre_models.Product
-        :return:
+        Inserting a product and its information and relationships in the database.
+
+        :param product: product to be inserted.
+
         """
-        # requete sql de type insert:
-        rows = self.db.query(product.insert_sql_query_product)
+
+        self.db.query(product.insert_sql_query_product)
         for store in product.stores:
-            rows = self.db.query(product.insert_sql_query_store(store))
-            rows = self.db.query(product.insert_sql_query_prod_store_relation(store))
+            self.db.query(product.insert_sql_query_store(store))
+            self.db.query(product.insert_sql_query_prod_store_relation(store))
 
 
 class CategoryRepository(BaseRepository):
+    """Class inheriting from BaseRepository and managing the interactions for categories"""
 
     def insert_by_model(self, category):
         """
-        :param category:
-        :type category: purbeurre_models.Category
-        :return:
-        """
-        # requete sql de type insert:
-        rows = self.db.query(category.insert_sql_query)
+        Inserting a category in the database.
 
-    def get_category_by_product(self, product):
-        category = self.db.query(product.select_sql_query_cat)
-        return category
+        :param category: category to be inserted.
+
+        """
+
+        self.db.query(category.insert_sql_query)
+
+    # def get_category_by_product(self, product):
+    #     """
+    #     Querying a product's category in the database.
+    #
+    #     :param product: product to be substituted.
+    #
+    #     :return substitute: roduct substitute saved in favorites.
+    #
+    #     """
+    #
+    #     category = self.db.query(product.select_sql_query_cat)
+    #     return category
 
     def get_categories(self):
+        """
+        Querying categories in the database.
+
+        :return categories: categories found in the database.
+
+        """
+
         categories = self.db.query('SELECT name FROM category;')
         return categories
 
-    def get_products_by_category(self, category):
-        category_products = self.db.query(category.select_sql_query_prod)
-        return category_products
+    # def get_products_by_category(self, category):
+    #
+    #     category_products = self.db.query(category.select_sql_query_prod)
+    #     return category_products
 
 
 class StoreRepository(BaseRepository):
+    """Class inheriting from BaseRepository and managing the interactions for stores"""
 
     def get_stores_by_product(self, product):
+        """
+        Querying stores associated to a product in thr product_store_relation table of the database.
+
+        :param product: product.
+
+        :return stores_list: list of the srores associated to the product found in the database.
+
+        """
+
         stores = self.db.query(product.select_sql_query_stores)
         stores_list = []
         for store in stores:
@@ -82,16 +160,34 @@ class StoreRepository(BaseRepository):
 
 
 class UserRepository(BaseRepository):
+    """Class inheriting from BaseRepository and managing the interactions for users"""
 
     def insert_by_model(self, user):
-        rows = self.db.query(user.insert_sql_query)
+        """
+        Inserting a user in the database.
+
+        :param user: user to be inserted.
+
+        """
+
+        self.db.query(user.insert_sql_query)
 
     def insert_favorite(self, user, bad_product, good_product):
-        rows = self.db.query(user.insert_sql_query_prod_user_relation(bad_product, good_product))
+        """
+        Inserting user's favorite in the products_users_relation table of the database:
+        bad product and its substitute.
 
-    def get_favorites_by_user(self, user):
-        favorites = self.db.query(user.select_sql_query_favorites)
+        :param user: user.
+        :param bad_product: product to be inserted.
+        :param good_product: substitute.
 
-    def get_products_by_user(self, user):
-        user_products = self.db.query(user.select_sql_query_prod)
-        return user_products
+        """
+
+        self.db.query(user.insert_sql_query_prod_user_relation(bad_product, good_product))
+
+    # def get_favorites_by_user(self, user):
+    #     favorites = self.db.query(user.select_sql_query_favorites)
+    #
+    # def get_products_by_user(self, user):
+    #     user_products = self.db.query(user.select_sql_query_prod)
+    #     return user_products
