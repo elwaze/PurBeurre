@@ -21,7 +21,7 @@ def sort_and_register_products(products, category_name):
     :param category_name: name of the category of these products.
 
     """
-    
+
     for i in (range(0, len(products) - 1)):
         for product in products[i]:
             url = product.get('url')
