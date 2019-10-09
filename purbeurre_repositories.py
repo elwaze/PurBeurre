@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Class Base Repository and its children. Manages interactions with the ihm and with the database.
+Class BaseRepository and its children. Manages interactions with the ihm and with the database.
 
 """
 
@@ -110,19 +110,6 @@ class CategoryRepository(BaseRepository):
 
         self.db.query(category.insert_sql_query)
 
-    # def get_category_by_product(self, product):
-    #     """
-    #     Querying a product's category in the database.
-    #
-    #     :param product: product to be substituted.
-    #
-    #     :return substitute: roduct substitute saved in favorites.
-    #
-    #     """
-    #
-    #     category = self.db.query(product.select_sql_query_cat)
-    #     return category
-
     def get_categories(self):
         """
         Querying categories in the database.
@@ -133,11 +120,6 @@ class CategoryRepository(BaseRepository):
 
         categories = self.db.query('SELECT name FROM category;')
         return categories
-
-    # def get_products_by_category(self, category):
-    #
-    #     category_products = self.db.query(category.select_sql_query_prod)
-    #     return category_products
 
 
 class StoreRepository(BaseRepository):
@@ -185,10 +167,3 @@ class UserRepository(BaseRepository):
         """
 
         self.db.query(user.insert_sql_query_prod_user_relation(bad_product, good_product))
-
-    # def get_favorites_by_user(self, user):
-    #     favorites = self.db.query(user.select_sql_query_favorites)
-    #
-    # def get_products_by_user(self, user):
-    #     user_products = self.db.query(user.select_sql_query_prod)
-    #     return user_products

@@ -29,8 +29,8 @@ class Product:
         self.name = name
         self.nutriscore = nutriscore
         self.category = category
-        self.stores = stores    # collection / liste (si ordonné)
-        self.users = users  # collection / liste (si ordonné)
+        self.stores = stores
+        self.users = users
 
     @property
     def insert_sql_query_product(self):
@@ -82,9 +82,6 @@ class Category:
 
     def insert_into_db(self):
         self.objects.insert_by_model(self)
-    #
-    # def get_from_db(self):
-    #     self.objects.get_categories()
 
 
 class Store:
