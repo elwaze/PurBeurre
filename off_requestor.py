@@ -106,7 +106,3 @@ def off_requestor():
     data_tags = categories_json.get('tags')
     # make some sorting and get products
     get_categories(data_tags)
-
-
-if __name__ == "__main__":
-    off_requestor()
