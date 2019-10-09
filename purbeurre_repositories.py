@@ -56,7 +56,7 @@ class ProductRepository(BaseRepository):
         products = self.db.query(user.select_sql_query_prod)
         return products
 
-    def get_product_infos(self, product):
+    def get_product_info(self, product):
         """
         Querying a product name and nutriscore in the database.
 
@@ -66,9 +66,9 @@ class ProductRepository(BaseRepository):
 
         """
 
-        return self.db.query(product.select_sql_query_infos)
-        # product_name, product_nutriscore = self.db.query(product.select_sql_query_infos)
-        # return product_name, product_nutriscore
+        return self.db.query(product.select_sql_query_info)
+        # result = self.db.query(product.select_sql_query_info)
+        # return result
 
     def get_substitute(self, product):
         """

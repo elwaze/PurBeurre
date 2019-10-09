@@ -58,7 +58,7 @@ class Product:
         self.objects.insert_by_model(self)
 
     @property
-    def select_sql_query_infos(self):
+    def select_sql_query_info(self):
         """returns the SQL script to get product information from the product table"""
 
         return 'SELECT name, nutriscore FROM product WHERE link = "{}";'.format(self.link)
@@ -166,5 +166,5 @@ class User:
     def select_sql_query_prod(self):
         """returns the SQL script to get unhealthy products in the products_users_relation table for a defined user"""
 
-        return 'SELECT bad_product_link FROM products_users_relation WHERE user_email_address = "{}";'.format(
+        return 'SELECT DISTINCT bad_product_link FROM products_users_relation WHERE user_email_address = "{}";'.format(
             self.email_address)

@@ -92,12 +92,11 @@ def favorites_search(user):
     """
 
     product = product_selection(user=user)
-    product = Product(link=product)
-    substitute = Product.objects.get_substitute(product)
-    substitute = Product(link=substitute)
+    product = Product(link=product[1], name=product[0], nutriscore=product[2])
+    substitute = Product.objects.get_substitute(product)[0]
+    substitute = Product(link=substitute["good_product_link"])
     substitute.stores = Store.objects.get_stores_by_product(substitute)
-    substitute.nutriscore = Product.objects.get_product_nutriscore(substitute)
-    substitute.name = Product.objects.get_product_name(substitute)
+    substitute.name, substitute.nutriscore = Product.objects.get_product_info(substitute)[0]
     substitute_proposal(substitute, product)
 
 
@@ -157,12 +156,10 @@ def product_selection(category=None, user=0):
             products.append((element['name'], element['link'], element['nutriscore']))
     # else, searching in the favorite products of the user
     else:
-        prods = Product.objects.get_products_by_user(user)
+        prods = list(Product.objects.get_products_by_user(user))
         for element in prods:
-            print(element)
             product = Product(link=element["bad_product_link"])
-            print(product)
-            product.name, product.nutriscore = Product.objects.get_product_infos(product)
+            product.name, product.nutriscore = Product.objects.get_product_info(product)[0]
             products.append((product.name, product.link, product.nutriscore))
 
     # asking the user to choose
