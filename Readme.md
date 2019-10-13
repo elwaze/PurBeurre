@@ -22,7 +22,7 @@ The program checks the user's choice. If correct:
 >>The user enters the number chosen.
 >>The program checks the user's choice.
 >>If correct, the program asks the user to choose among a list of products.
->>The user enters the number chosen.
+>>The user enters the number chosen. \n
 >>The program checks the user's choice.
 >>If correct, the program searches in the database a product from the same category with a better nutriscore.
 >>The program displays the substitute with it's related information.
@@ -31,13 +31,12 @@ The program checks the user's choice. If correct:
 >>If asked, the program saves the products to the users favorites in the database.
     
 >**- 1:**
->>The program asks the user to choose among a list of categories.
+>>The program asks the user to choose among a list of products.
 >>The user enters the number chosen.
 >>The program checks the user's choice.
->>If correct, the program asks the user to choose among a list of products.  
->>The user enters the number chosen.
->>The program checks the user's choice.
->>The program displays the product's related information.
->>>(name, store where to buy it, link to OFF's page, nutriscore)
+>>If correct, the program displays the product's saved substitute and displays its related information.
+>>(name, store where to buy it, link to OFF's page, nutriscore)
 
 The program asks the user if he wants to continue (o/n for yes or no).
+If the user enters yes, the program goes back to the choice between 1 and 2.
+If the user enters no, the program quits.
