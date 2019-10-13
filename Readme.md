@@ -22,7 +22,7 @@ The program checks the user's choice. If correct:
 >>The user enters the number chosen.
 >>The program checks the user's choice.
 >>If correct, the program asks the user to choose among a list of products.
->>The user enters the number chosen. \n
+>>The user enters the number chosen.
 >>The program checks the user's choice.
 >>If correct, the program searches in the database a product from the same category with a better nutriscore.
 >>The program displays the substitute with it's related information.
