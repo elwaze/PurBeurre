@@ -166,4 +166,4 @@ class UserRepository(BaseRepository):
 
         """
 
-        self.db.query(user.insert_sql_query_prod_user_relation(bad_product, good_product))
+        self.db.query(user.insert_sql_query_prod_user_relation(good_product, bad_product))
