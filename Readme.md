@@ -18,7 +18,7 @@ The user enters 1 or 2
 The program checks the user's choice. If correct:   
 
 >**- 2:**
->>The program asks the user to choose among a list of categories.
+>>The program asks the user to choose among a list of categories. \n
 >>The user enters the number chosen.
 >>The program checks the user's choice.
 >>If correct, the program asks the user to choose among a list of products.
