@@ -17,21 +17,27 @@ The user enters 1 or 2
 
 The program checks the user's choice. If correct:   
 
-**>-  2:**
+>- 2:
 >>The program asks the user to choose among a list of categories.
+>>
+>>The user enters the number chosen.
+
+>>The program checks the user's choice.
+
+>>If correct, the program asks the user to choose among a list of products.
 
 >>The user enters the number chosen.
+
 >>The program checks the user's choice.
->>If correct, the program asks the user to choose among a list of products.
->>The user enters the number chosen.
->>The program checks the user's choice.
+
 >>If correct, the program searches in the database a product from the same category with a better nutriscore.
+
 >>The program displays the substitute with it's related information.
 >>(name, nutriscore, store where to buy it, link to OFF's page)
 >>The program asks the user if he wants to save the result in the database (o/n for yes or no).
 >>If asked, the program saves the products to the users favorites in the database.
     
->**- 1:**
+>- 1:
 >>The program asks the user to choose among a list of products.
 >>The user enters the number chosen.
 >>The program checks the user's choice.
