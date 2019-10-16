@@ -81,8 +81,8 @@ def get_categories(data_tags):
     for idx, data in enumerate(data_tags):
         name = data['name']
         products_number = data['products']
-        # for a useful category, we want at least 100 products
-        if products_number > 100:
+        # for a useful category, we want at least 200 products
+        if products_number > 200:
             if ":" not in name and "-" not in name:
                 category_registered = Category(name=name)
                 category_registered.insert_into_db()
