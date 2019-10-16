@@ -67,8 +67,6 @@ class ProductRepository(BaseRepository):
         """
 
         return self.db.query(product.select_sql_query_info)
-        # result = self.db.query(product.select_sql_query_info)
-        # return result
 
     def get_substitute(self, product):
         """
@@ -80,8 +78,7 @@ class ProductRepository(BaseRepository):
 
         """
 
-        substitute = self.db.query(product.select_sql_query_substitute)
-        return substitute
+        return self.db.query(product.select_sql_query_substitute)
 
     def insert_by_model(self, product):
         """
