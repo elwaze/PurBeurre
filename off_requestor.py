@@ -57,8 +57,8 @@ def get_products(category_name, url, products_number):
     pages_count = 1
     needed_pages = products_number / 20
     # if we take too many pages, it's too long for demo
-    if needed_pages > 3:
-        needed_pages = 3
+    if needed_pages > 6:
+        needed_pages = 6
     while pages_count < needed_pages:
         # we request pages one by one
         request_products = requests.get(url + '&json=' + str(pages_count))
@@ -90,7 +90,7 @@ def get_categories(data_tags):
                 get_products(name, data['url'], products_number)
                 category_selected += 1
 
-        if category_selected == 5:
+        if category_selected == 6:
             break
 
 

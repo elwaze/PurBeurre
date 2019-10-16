@@ -2,7 +2,7 @@
 # coding: utf-8
 
 """
-Classes to build the objects.
+Classes to build the objects stored in the database.
 
 """
 

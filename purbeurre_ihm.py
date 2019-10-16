@@ -15,13 +15,19 @@ import off_requestor
 
 def hello():
     """
+    Runing off requestor to request the api and register products in the database.
     Initiating dialog with user and registering its id in the database.
 
     :return user: user registered in the database.
 
     """
 
+    # runs the requests to OFF
+    # loads the OFF API data to database
+    off_requestor.off_requestor()
+
     puts(colored.magenta("BONJOUR !"))
+
     # asks for user identification. Registers in db if new user.
     user_id = prompt.query("Veuillez renseigner votre adresse e-mail afin d'être identifié : ")
     user = User(user_id)
@@ -43,13 +49,19 @@ def user_choice():
     with indent(4):
         puts(colored.blue("1 : Retrouver vos aliments substitués"))
         puts(colored.blue("2 : Rechercher un nouvel aliment"))
-    response = int(prompt.query(" "))
-    # asking again in case of wrong choice
-    choice_list = [1, 2]
-    if response not in choice_list:
+    try:
+        response = int(prompt.query(" "))
+    except ValueError:
         puts(colored.red("Attention : vous devez obligatoirement rentrer 1 ou 2 pour continuer."))
-        user_choice()
-    return response
+        return user_choice()
+    else:
+        # asking again in case of wrong choice
+        choice_list = [1, 2]
+        if response not in choice_list:
+            puts(colored.red("Attention : vous devez obligatoirement rentrer 1 ou 2 pour continuer."))
+            return user_choice()
+        else:
+            return response
 
 
 def new_search(user):
@@ -60,9 +72,6 @@ def new_search(user):
 
     """
 
-    # runs the requests to OFF
-    # loads the OFF API data to database
-    off_requestor.off_requestor()
     # asks the user to choose a category among the categories registered
     category = category_selection()
     category = Category(name=category)
@@ -118,20 +127,20 @@ def category_selection():
     for i in range(len(categories)):
         with indent(4):
             puts(colored.blue(str(i + 1) + ' : ' + categories[i]))
-    category_number = int(prompt.query(" "))
     try:
+        category_number = int(prompt.query(" "))
         category_number = category_number - 1
-    except TypeError:
+    except ValueError:
         # asking again in case of wrong choice
         puts(colored.red("Attention : vous devez rentrer un nombre de la liste de catégories"))
-        category_selection()
+        return category_selection()
     else:
         if category_number in range(len(categories)):
             return categories[category_number]
         else:
             # asking again in case of wrong choice
             puts(colored.red("Attention : vous devez rentrer un nombre de la liste de catégories"))
-            category_selection()
+            return category_selection()
 
 
 def product_selection(category=None, user=0):
@@ -166,20 +175,20 @@ def product_selection(category=None, user=0):
     for i in range(len(products)):
         with indent(4):
             puts(colored.blue(str(i + 1) + ' : ' + products[i][0]))
-    product_number = int(prompt.query(" "))
     try:
+        product_number = int(prompt.query(" "))
         product_number = product_number - 1
-    except TypeError:
+    except ValueError:
         # asking again in case of wrong choice
         puts(colored.red("Attention : vous devez rentrer un nombre de la liste de produits"))
-        product_selection(category=category, user=user)
+        return product_selection(category=category, user=user)
     else:
         if product_number in range(len(products)):
             return products[product_number]
         else:
             # asking again in case of wrong choice
             puts(colored.red("Attention : vous devez rentrer un nombre de la liste de produits"))
-            product_selection(category=category, user=user)
+            return product_selection(category=category, user=user)
 
 
 def substitute_proposal(substitute, product):
