@@ -145,7 +145,7 @@ class User:
 
     @property
     def insert_sql_query(self):
-        """returns the SQL script to insert a user in the category table"""
+        """returns the SQL script to insert a user in the user table"""
 
         return 'INSERT IGNORE INTO user (email_address) VALUES ("{}");'.format(self.email_address)
 

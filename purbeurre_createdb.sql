@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `OFF`.`product` (
   `category_name` VARCHAR(150) NOT NULL,
   PRIMARY KEY (`link`, `category_name`),
   INDEX `fk_product_category1_idx` (`category_name` ASC) VISIBLE,
+  UNIQUE INDEX `link_UNIQUE` (`link` ASC) VISIBLE,
   CONSTRAINT `fk_product_category1`
     FOREIGN KEY (`category_name`)
     REFERENCES `OFF`.`category` (`name`)
