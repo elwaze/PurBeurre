@@ -2,7 +2,8 @@
 # coding: utf-8
 
 """
-Class BaseRepository and its children. Manages interactions with the ihm and with the database.
+Class BaseRepository and its children.
+Manages interactions with the ihm and with the database.
 
 """
 
@@ -15,7 +16,8 @@ class BaseRepository:
 
 
 class ProductRepository(BaseRepository):
-    """Class inheriting from BaseRepository and managing the interactions for products"""
+    """Class inheriting from BaseRepository,
+    managing the interactions for products"""
 
     def get_better_products_by_category(self, category):
         """
@@ -23,11 +25,13 @@ class ProductRepository(BaseRepository):
 
         :param category: category of the products.
 
-        :return better_products: products of the same category ordered by nutriscore level.
+        :return better_products: products of the same category
+        ordered by nutriscore level.
 
         """
 
-        better_products = self.db.query(category.select_sql_query_better_products)
+        better_products = self.db.query(
+            category.select_sql_query_better_products)
         return better_products
 
     def get_products_by_category(self, category):
@@ -56,13 +60,14 @@ class ProductRepository(BaseRepository):
         products = self.db.query(user.select_sql_query_prod)
         return products
 
-    def get_product_info(self, product):
+    def get_prod_info(self, product):
         """
         Querying a product name and nutriscore in the database.
 
         :param product: product.
 
-        :return product_name, product_nutriscore: name and nutriscore of the product.
+        :return product_name: name of the product.
+                product_nutriscore: nutriscore of the product.
 
         """
 
@@ -82,7 +87,8 @@ class ProductRepository(BaseRepository):
 
     def insert_by_model(self, product):
         """
-        Inserting a product and its information and relationships in the database.
+        Inserting a product and its information
+        and relationships in the database.
 
         :param product: product to be inserted.
 
@@ -91,11 +97,13 @@ class ProductRepository(BaseRepository):
         self.db.query(product.insert_sql_query_product)
         for store in product.stores:
             self.db.query(product.insert_sql_query_store(store))
-            self.db.query(product.insert_sql_query_prod_store_relation(store))
+            self.db.query(
+                product.insert_sql_query_prod_store_relation(store))
 
 
 class CategoryRepository(BaseRepository):
-    """Class inheriting from BaseRepository and managing the interactions for categories"""
+    """Class inheriting from BaseRepository,
+    managing the interactions for categories"""
 
     def insert_by_model(self, category):
         """
@@ -120,15 +128,18 @@ class CategoryRepository(BaseRepository):
 
 
 class StoreRepository(BaseRepository):
-    """Class inheriting from BaseRepository and managing the interactions for stores"""
+    """Class inheriting from BaseRepository,
+    managing the interactions for stores"""
 
     def get_stores_by_product(self, product):
         """
-        Querying stores associated to a product in thr product_store_relation table of the database.
+        Querying stores associated to a product in the
+        product_store_relation table of the database.
 
         :param product: product.
 
-        :return stores_list: list of the srores associated to the product found in the database.
+        :return stores_list: list of the stores
+                associated to the product found in the database.
 
         """
 
@@ -140,7 +151,8 @@ class StoreRepository(BaseRepository):
 
 
 class UserRepository(BaseRepository):
-    """Class inheriting from BaseRepository and managing the interactions for users"""
+    """Class inheriting from BaseRepository?
+    managing the interactions for users"""
 
     def insert_by_model(self, user):
         """
@@ -154,7 +166,7 @@ class UserRepository(BaseRepository):
 
     def insert_favorite(self, user, bad_product, good_product):
         """
-        Inserting user's favorite in the products_users_relation table of the database:
+        Inserting user's favorite in the products_users_relation table:
         bad product and its substitute.
 
         :param user: user.
@@ -163,4 +175,5 @@ class UserRepository(BaseRepository):
 
         """
 
-        self.db.query(user.insert_sql_query_prod_user_relation(good_product, bad_product))
+        self.db.query(user.insert_sql_query_prod_user_relation(
+            good_product, bad_product))
