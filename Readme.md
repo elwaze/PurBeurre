@@ -67,5 +67,5 @@ pip install -r requirements.txt
 >Set the environment variables to access the database
 (PURBEURRE_DB_USER, PURBEURRE_DB_PASSWORD, PURBEURRE_DB_IP, PURBEURRE_DB_NAME).
 >
->Then, load the program with python 3 (that have to be installed on your computer):
+>Then, load the program with python 3 (that have to be installed on your computer):  
 python purbeurre_ihm.py
