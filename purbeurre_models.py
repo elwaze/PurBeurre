@@ -40,8 +40,7 @@ class Product:
     def insert_sql_query_product(self):
         """returns the SQL script to insert a product in the product table"""
 
-        return 'INSERT IGNORE INTO product (link, name, nutriscore, category_name) VALUES ("{}", "{}", "{}", "{}");'.format(
-            self.link, self.name, self.nutriscore, self.category)
+        return 'INSERT IGNORE INTO product (link, name, nutriscore, category_name) VALUES ("{}", "{}", "{}", "{}");'.format(self.link, self.name, self.nutriscore, self.category)
 
     def insert_sql_query_store(self, store):
         """returns the SQL script to insert a store in the store table"""

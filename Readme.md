@@ -62,10 +62,10 @@ If the user enters no, the program quits.
 >Use requirements.txt to install the program environment:
 pip install -r requirements.txt
 >
->Create the MySQL database with purbeurre_createdb.sql.
+>Execute purbeurre_createdb.sql in MySQL to create the database.
 >
->Set the environment variables to access the database
+>Set the environment variables to access the database in file .env
 (PURBEURRE_DB_USER, PURBEURRE_DB_PASSWORD, PURBEURRE_DB_IP, PURBEURRE_DB_NAME).
 >
->Then, load the program with python 3 (that have to be installed on your computer):  
+>Then, load the program with python 3 (that have to be installed on your computer):
 python purbeurre_ihm.py

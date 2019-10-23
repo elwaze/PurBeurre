@@ -14,7 +14,7 @@ from purbeurre_models import Product, Category, Store, User
 
 def sort_and_register_products(products, category_name):
     """
-    Sorting products from the API to keep only products with useful information.
+    Sorting products from the API to keep only those with useful information.
     And inserting selected products in the database.
 
     :param products: list of products from the API.
@@ -29,7 +29,13 @@ def sort_and_register_products(products, category_name):
             nutriscore = product.get('nutrition_grades')
             stores = product.get('stores')
             country = product.get('countries')
-            if all([url, name, nutriscore, stores, country.lower().strip() == "france"]):
+            if all([
+                url,
+                name,
+                nutriscore,
+                stores,
+                country.lower().strip() == "france"
+            ]):
                 # insert product in database
                 options = {
                     "name": name,
@@ -45,9 +51,11 @@ def sort_and_register_products(products, category_name):
 def get_products(category_name, url, products_number):
     """
     Requesting products to the API, and then
-    calling sort_and_register_products to sort and insert in the database retrieved products.
+    calling sort_and_register_products to sort and
+    insert in the database retrieved products.
 
-    :param category_name: name of the category used to search for products in the API.
+    :param category_name: name of the category used
+    to search for products in the API.
     :param url: url of the category
     :param products_number: number of products contained in this category.
 
@@ -70,8 +78,9 @@ def get_products(category_name, url, products_number):
 
 def get_categories(data_tags):
     """
-    Checking basic information from data_tags, insert categories into database and
-    calling get_products to get products of the selected categories from the API.
+    Checking basic information from data_tags, insert categories into database
+    and calling get_products to get products of the selected categories
+    from the API.
 
     :param data_tags: categories information retrieved from the API.
 
@@ -96,12 +105,14 @@ def get_categories(data_tags):
 
 def off_requestor():
     """
-    Main part, running requesting to the API, sorting results and saving it in the database.
+    Main part, running requesting to the API,
+    sorting results and saving it in the database.
 
     """
 
     # get categories from the OpenFoodFacts' API
-    request_categories = requests.get('https://fr.openfoodfacts.org/categories&json=1')
+    request_categories = requests.get(
+        'https://fr.openfoodfacts.org/categories&json=1')
     categories_json = request_categories.json()
     data_tags = categories_json.get('tags')
     # make some sorting and get products
