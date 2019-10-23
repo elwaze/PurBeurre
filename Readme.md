@@ -53,19 +53,15 @@ The program checks the user's choice. If correct:
 
 The program asks the user if he wants to continue (o/n for yes or no).
 If the user enters yes, the program goes back to the choice between 1 and 2.
-If the user enters no, the program quits.
+If the user enters no, the program quits.  
 
 ### How to install it :
 
->First, clone the project repository.
->
->Use requirements.txt to install the program environment:
+First, clone the project repository.
+Use requirements.txt to install the program environment:
 pip install -r requirements.txt
->
->Create the MySQL database with purbeurre_createdb.sql.
->
->Set the environment variables to access the database
+Create the MySQL database with purbeurre_createdb.sql.
+Set the environment variables to access the database
 (PURBEURRE_DB_USER, PURBEURRE_DB_PASSWORD, PURBEURRE_DB_IP, PURBEURRE_DB_NAME).
->
->Then, load the program with python 3 (that have to be installed on your computer):  
+Then, load the program with python 3 (that have to be installed on your computer):
 python purbeurre_ihm.py
