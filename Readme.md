@@ -57,17 +57,32 @@ If the user enters no, the program quits.
 
 ### How to install it :
 
->First, clone the project repository and go in the project directory:
+> First, clone the project repository and go in the project directory:
+
+
+```bash
 git clone "https://github.com/elwaze/PurBeurre"
 cd OCP5
->
->Use requirements.txt to install the program environment:
+```
+
+> Use requirements.txt to install the program environment:
+
+```bash
 pip install -r requirements.txt
->
->Execute purbeurre_createdb.sql in MySQL to create the database.
->
->Set the environment variables to access the database
-(PURBEURRE_DB_USER = username, PURBEURRE_DB_PASSWORD = password, PURBEURRE_DB_IP = SQL server adress, PURBEURRE_DB_NAME = name of the database).
->
->Then, load the program with python 3 (that have to be installed on your computer):
+```
+
+> Execute purbeurre_createdb.sql in MySQL to create the database.
+> Set the environment variables to access the database
+
+```bash
+set PURBEURRE_DB_USER=username 
+set PURBEURRE_DB_PASSWORD=password
+set PURBEURRE_DB_IP=<SQL server adress>
+set PURBEURRE_DB_NAME=<name of the database>
+```
+
+> Then, load the program with python 3 (that have to be installed on your computer):
+
+```bash
 python purbeurre_ihm.py
+```
